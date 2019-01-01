@@ -1,0 +1,35 @@
+def get_next_target(page):
+    start_link = page.find('<a href=')
+    if start_link == -1:
+        return None, 0
+    start_quote = page.find('"', start_link)
+    end_quote = page.find('"',start_quote + 1 )
+    url = page[start_quote +1:end_quote]
+    return url, end_quote
+    
+def print_all_links(page):
+    while True:
+        url, endpos = get_next_target(page)
+        if url:
+            print url
+            page = page[endpos:]
+        else:
+            break
+        
+print_all_links(get_next_target("https://udacity.github.io/cs101x/index.html'"))
+
+
+
+
+Traceback (most recent call last):
+  File "vm_main.py", line 33, in <module>
+    import main
+  File "/tmp/vmuser_ybtmqzmiys/main.py", line 2, in <module>
+    import studentMain
+  File "/tmp/vmuser_ybtmqzmiys/studentMain.py", line 24, in <module>
+    print_all_links(get_next_target("https://udacity.github.io/cs101x/index.html'"))
+  File "/tmp/vmuser_ybtmqzmiys/studentMain.py", line 17, in print_all_links
+    url, endpos = get_next_target(page)
+  File "/tmp/vmuser_ybtmqzmiys/studentMain.py", line 7, in get_next_target
+    start_link = page.find('<a href=')
+AttributeError: 'tuple' object has no attribute 'find'
